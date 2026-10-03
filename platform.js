@@ -1,7 +1,7 @@
 (() => {
 const menu=document.querySelector('.menu'),nav=document.getElementById('nav');
 if(menu&&nav){menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open)});nav.querySelectorAll('a').forEach(a=>{if(a.getAttribute('href')===(location.pathname.split('/').pop()||'index.html'))a.setAttribute('aria-current','page');a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');nav.classList.remove('open')})});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){menu.click();menu.focus()}})}
-const request=async(path,options={})=>{if(window.SERANDIB_PREVIEW)throw new Error('This is a design preview. Online saving is not enabled.');
+const request=async(path,options={})=>{
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000);
  try{
   const r=await fetch(path,{...options,signal:options.signal||controller.signal,headers:{'Content-Type':'application/json',...options.headers}});

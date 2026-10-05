@@ -3,7 +3,7 @@
 function today(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
 function validate(input){
  if(!input||typeof input.city!=='string'||!input.city.trim())throw new Error('Choose a city.');
- if(input.year!==undefined&&![2026,2027,2028].includes(input.year))throw new Error('Choose 2026, 2027 or 2028.');
+ if(input.year!==undefined&&(!Number.isInteger(input.year)||input.year<2026||input.year>2100))throw new Error('Choose a valid wedding year.');
  if(input.date&&input.year&&Number(input.date.slice(0,4))!==input.year)throw new Error('Your wedding date must be in the selected year.');
  if(!Number.isSafeInteger(input.guests)||input.guests<1||input.guests>10000)throw new Error('Enter a whole guest count between 1 and 10,000.');
  if(!Number.isFinite(input.budget)||input.budget<=0||input.budget>1000000000)throw new Error('Enter a venue budget between LKR 1 and LKR 1,000,000,000.');
@@ -13,6 +13,7 @@ function validate(input){
 }
 function estimate(venue,p,input){
  const now=input.today||today();const year=input.year||Number((input.date||now).slice(0,4));const start=input.date||[now,year+'-01-01'].sort().pop();const end=input.date||year+'-12-31';const date=input.date||start;const reasons=[];
+ if(p.kind==='quote')reasons.push('No published package price. Request a current quotation.');
  if(end<now)reasons.push('This wedding year has passed.');
  if(p.validFrom&&end<p.validFrom)reasons.push('Published rate starts '+p.validFrom+'.');
  if(p.requiresYearConfirmation)reasons.push('This published price has no confirmed validity for '+year+'. Request a year-specific quote.');

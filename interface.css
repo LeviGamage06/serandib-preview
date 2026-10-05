@@ -41,3 +41,15 @@ body>header{position:sticky;top:0;z-index:30;height:96px;padding:0 var(--gutter)
 }
 @media(max-width:760px){.story-motion-toolbar{align-items:start}.story-motion-toolbar p{max-width:170px;line-height:1.7}.story-motion-on .story-trio>a{translate:none}}
 @media(prefers-reduced-motion:reduce){.story-trio>a,.story-trio img,.story-trio .story-visual{animation:none!important;transition:none!important;translate:none!important;scale:none!important}}
+
+/* Static planning flows */
+#consultation-status textarea, #share-status textarea { display:block; width:100%; max-width:100%; min-height:110px; margin-top:16px; padding:12px; color:var(--ink); background:#fff; border:1px solid var(--line); font:inherit; overflow-wrap:anywhere; }
+#consultation-status { overflow-wrap:anywhere; }
+#budget-planner fieldset { min-width:0; }
+@media print {
+  header, footer, .mobile-action, nav, button, .language-notes { display:none !important; }
+  .budget-planner { display:block !important; }
+  input { color:#000 !important; border:1px solid #777 !important; }
+  .paper-form { box-shadow:none !important; break-inside:auto; }
+  .check-label { break-inside:avoid; }
+}
